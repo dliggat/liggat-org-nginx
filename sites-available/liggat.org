@@ -24,8 +24,6 @@ server {
         index index.html index.htm;
 
 
-        #include /etc/nginx/h5bp/h5bp/basic.conf;
-
         server_name liggat.org;
         error_page  404              /404/index.html;
         location / {
