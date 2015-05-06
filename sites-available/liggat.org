@@ -15,3 +15,23 @@ server {
   rewrite "/([0-9]{4})/([0-9]{2})/([0-9]{2})/(.*)" /$4 permanent;
   include h5bp/basic.conf;
 }
+
+server {
+  listen 443 ssl;
+  include h5bp/directive-only/ssl.conf;
+
+  include h5bp/basic.conf;
+
+  root /var/www/liggat.org/public;
+  index index.html index.htm;
+  error_page  404 /404/index.html;
+
+  server_name liggat.org;
+  ssl_certificate /etc/nginx/ssl/liggat.org.chained.crt;
+  ssl_certificate_key /etc/nginx/ssl/liggat.org.key;
+
+  location / {
+    default_type "text/html";
+    try_files $uri.html $uri $uri/ =404;
+  }
+}
